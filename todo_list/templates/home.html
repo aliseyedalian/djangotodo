@@ -6,5 +6,25 @@
 
 
 {% block body %}
-    <h1>Homepage</h1>
+    {% if all_items %}
+    <table class="table table-bordered">
+        {% for thing in all_items %}
+            {% if thing.completed %}
+                <tr class="table-secondary">
+                    <td>{{thing.item}}</td>
+                    <td>{{thing.completed}}</td>
+                    <td>Delete</td>
+        
+                </tr>
+            {% else %}
+                <tr>
+                    <td>{{thing.item}}</td>
+                    <td>{{thing.completed}}</td>
+                    <td>Delete</td>
+        
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
 {% endblock %}
