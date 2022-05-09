@@ -24,13 +24,15 @@ def delete(request, item_id):
     item = List.objects.get(pk=item_id)
     item.delete()
     request.session['undo_item'] = item.item
+    request.session['undo_completed'] = item.completed
     messages.warning(request,('Item "{}" Has Been Deleted!'.format(item.item)))
     return redirect('home')
 
 def undo(request):
     undo_item = request.session.get('undo_item')
-    item = List(item=undo_item)
-    item.save()
+    undo_completed = request.session.get('undo_completed')
+    retrieved_item = List(item=undo_item, completed = undo_completed)
+    retrieved_item.save()
     messages.success(request,('Undo: Item "{}" Has Been Retrieved!'.format(undo_item)))
     return redirect('home')
 
@@ -45,3 +47,16 @@ def uncross(request, item_id):
     item.completed = False
     item.save()
     return redirect('home')
+
+def edit(request, item_id):
+    if request.method == "POST":  # add form input item to database
+        if request.POST["edit_form_item"] != "" :
+            item = List(item=request.POST["edit_form_item"], completed = request.POST["edit_form_completed"])
+            item.save()
+            messages.success(request,('Item Has Been Edited!'))
+            return redirect('home')
+
+    
+    item = List.objects.get(pk=item_id)
+    item.delete()
+    return render(request,'edit.html',{'item': item})
