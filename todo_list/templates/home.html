@@ -30,16 +30,15 @@
             {% if thing.completed %}
                 <tr class="table-secondary">
                     <td class="striker">{{thing.item}}</td>
-                    <td><center>{{thing.completed}}</center></td>
+                    <td><center><a href="{% url 'uncross' thing.id %}">Uncross</a></center></td>
                     <td><center><a href="{% url 'delete' thing.id %}">Delete</a></center></td>
         
                 </tr>
             {% else %}
                 <tr>
                     <td>{{thing.item}}</td>
-                    <td><center>{{thing.completed}}</center></td>
+                    <td><center><a href="{% url 'crossoff' thing.id %}">Cross Off</a></center></td>
                     <td><center><a href="{% url 'delete' thing.id %}">Delete</a></center></td>
-        
                 </tr>
             {% endif %}
         {% endfor %}

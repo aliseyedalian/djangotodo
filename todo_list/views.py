@@ -33,3 +33,15 @@ def undo(request):
     item.save()
     messages.success(request,('Undo: Item "{}" Has Been Retrieved!'.format(undo_item)))
     return redirect('home')
+
+def crossoff(request, item_id):
+    item = List.objects.get(pk=item_id)
+    item.completed = True
+    item.save()
+    return redirect('home')
+
+def uncross(request, item_id):
+    item = List.objects.get(pk=item_id)
+    item.completed = False
+    item.save()
+    return redirect('home')
