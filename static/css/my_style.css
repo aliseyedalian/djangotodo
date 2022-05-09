@@ -2,9 +2,18 @@
     text-decoration: line-through;
 }
 /* The alert message box */
-.alert {
+.alertsuccess {
+    border-radius: 2pt;
     padding: 20px;
     background-color: #51ab14; /* Green */
+    color: white;
+    margin-bottom: 15px;
+  }
+
+.alertwarning {
+    border-radius: 2pt;
+    padding: 20px;
+    background-color: rgb(212, 155, 12); /* Green */
     color: white;
     margin-bottom: 15px;
   }
@@ -20,8 +29,24 @@
     cursor: pointer;
     transition: 0.3s;
   }
+    /* The close button */
+    .undobtn {
+        padding: 0;
+        border: none;
+        background: none;
+        margin-left: 15px;
+        color: white;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
   
   /* When moving the mouse over the close button */
   .closebtn:hover {
+    color: black;
+  }
+  .undobtn:hover {
     color: black;
   }

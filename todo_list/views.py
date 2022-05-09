@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import List
 from .forms import ListForm
 from django.contrib import messages
+
 
 # Create your views here.
 def home(request):
@@ -17,3 +18,18 @@ def home(request):
 
 def about(request):
     return render(request,'about.html',{})
+
+
+def delete(request, item_id):
+    item = List.objects.get(pk=item_id)
+    item.delete()
+    request.session['undo_item'] = item.item
+    messages.warning(request,('Item "{}" Has Been Deleted!'.format(item.item)))
+    return redirect('home')
+
+def undo(request):
+    undo_item = request.session.get('undo_item')
+    item = List(item=undo_item)
+    item.save()
+    messages.success(request,('Undo: Item "{}" Has Been Retrieved!'.format(undo_item)))
+    return redirect('home')

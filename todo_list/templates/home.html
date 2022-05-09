@@ -8,10 +8,20 @@
 {% block body %}
     {% if messages %}
         {% for message in messages %}
-        <div class="alert">
-            {{message}}
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>     
-          </div>            
+            {% if message.tags == "success" %}
+            <div class="alertsuccess">
+                {{message}}
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>     
+            </div>   
+            {% endif %}    
+            {% if message.tags == "warning" %}
+            <div class="alertwarning">
+                {{message}}
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                <a class="undobtn" href="{% url 'undo' %}">Undo</a>
+                
+            </div>   
+            {% endif %}      
         {% endfor %}
     {% endif %}
     {% if all_items %}
@@ -20,15 +30,15 @@
             {% if thing.completed %}
                 <tr class="table-secondary">
                     <td class="striker">{{thing.item}}</td>
-                    <td>{{thing.completed}}</td>
-                    <td>Delete</td>
+                    <td><center>{{thing.completed}}</center></td>
+                    <td><center><a href="{% url 'delete' thing.id %}">Delete</a></center></td>
         
                 </tr>
             {% else %}
                 <tr>
                     <td>{{thing.item}}</td>
-                    <td>{{thing.completed}}</td>
-                    <td>Delete</td>
+                    <td><center>{{thing.completed}}</center></td>
+                    <td><center><a href="{% url 'delete' thing.id %}">Delete</a></center></td>
         
                 </tr>
             {% endif %}
