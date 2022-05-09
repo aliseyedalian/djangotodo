@@ -15,11 +15,6 @@ def home(request):
     all_items = List.objects.all
     return render(request,'home.html',{'all_items': all_items})
 
-
-def about(request):
-    return render(request,'about.html',{})
-
-
 def delete(request, item_id):
     item = List.objects.get(pk=item_id)
     item.delete()
