@@ -6,6 +6,14 @@
 
 
 {% block body %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert">
+            {{message}}
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>     
+          </div>            
+        {% endfor %}
+    {% endif %}
     {% if all_items %}
     <table class="table table-bordered">
         {% for thing in all_items %}
